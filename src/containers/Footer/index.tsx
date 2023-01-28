@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const Footer = () => (
   <Container>
     <span>
-      <span>Copyright@2022 Feedback Reviews, All rights reserved.</span>
+      <span>Copyright@2022 Customer Feedback, All rights reserved.</span>
     </span>
   </Container>
 )

@@ -7,7 +7,7 @@ export type Review = {
   email: string
   rating: number
   comment: string
-  submitted_at: string
+  createdAt: string
 }
 
 export type ReviewState = {

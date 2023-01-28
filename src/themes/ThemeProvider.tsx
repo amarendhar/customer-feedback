@@ -1,5 +1,5 @@
 import React from 'react'
-import { ThemeProvider as StyledThemeProvider } from 'styled-components'
+import { ThemeProvider as StyledThemeProvider, DefaultTheme } from 'styled-components'
 import CssBaseline from '@mui/material/CssBaseline'
 import GlobalStyle from './GlobalStyles'
 
@@ -140,7 +140,7 @@ export const mediaQueries: Record<
   },
 }
 
-export const theme = {
+export const theme: DefaultTheme = {
   space,
   fontSizes,
   fontWeights,

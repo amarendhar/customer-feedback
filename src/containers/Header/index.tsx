@@ -13,7 +13,7 @@ import {
   Typography,
   Button,
 } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
+import { Menu } from '@mui/icons-material'
 import { NavLink } from 'react-router-dom'
 
 const drawerWidth = 240
@@ -29,26 +29,6 @@ const Header = () => {
     setMobileOpen((prevState) => !prevState)
   }
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        Feedback
-      </Typography>
-      <Divider />
-      <List>
-        {navItems.map(({ label, to }) => (
-          <NavLink key={label} to={to}>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={label} />
-              </ListItemButton>
-            </ListItem>
-          </NavLink>
-        ))}
-      </List>
-    </Box>
-  )
-
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar component="nav">
@@ -60,14 +40,14 @@ const Header = () => {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
           <Typography
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            Feedback
+            Customer Feedback
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map(({ label, to }) => (
@@ -94,7 +74,23 @@ const Header = () => {
             },
           }}
         >
-          {drawer}
+          <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+            <Typography variant="h6" sx={{ my: 2 }}>
+              Customer Feedback
+            </Typography>
+            <Divider />
+            <List>
+              {navItems.map(({ label, to }) => (
+                <NavLink key={label} to={to}>
+                  <ListItem disablePadding>
+                    <ListItemButton sx={{ textAlign: 'center' }}>
+                      <ListItemText primary={label} />
+                    </ListItemButton>
+                  </ListItem>
+                </NavLink>
+              ))}
+            </List>
+          </Box>
         </Drawer>
       </Box>
     </Box>
