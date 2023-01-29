@@ -30,34 +30,34 @@ const FeedbackForm = ({ initialValues }: FeedbackFormProps) => {
             <Details>
               <TextField
                 inputProps={{
-                  'data-testid': 'name',
+                  'data-testid': fields.name.name,
                 }}
-                name="name"
-                label="Name"
+                name={fields.name.name}
+                label={fields.name.label}
+                placeholder={fields.name.placeholder}
+                helperText={fields.name.helperText.generic}
                 type="text"
                 variant="outlined"
-                placeholder="Enter Your Name"
-                helperText="Minimum length is 4 upto 20 characters"
                 required
               />
               <TextField
                 inputProps={{
-                  'data-testid': 'email',
+                  'data-testid': fields.email.name,
                 }}
-                name="email"
-                label="Email"
+                name={fields.email.name}
+                label={fields.email.label}
+                placeholder={fields.email.placeholder}
+                helperText={fields.email.helperText.generic}
                 type="email"
                 variant="outlined"
-                placeholder="Enter Your Email"
                 required
               />
-              <RatingContainer data-testid="rating-item">
+              <RatingContainer data-testid={fields.rating.name}>
                 <Typography component="legend">Rating (1-5 stars) *</Typography>
                 <Field
-                  name="rating"
+                  name={fields.rating.name}
                   component={() => (
                     <RatingComponent
-                      data-testid="rating"
                       rating={rating}
                       hover={hover}
                       onChange={(e, newValue) =>
@@ -71,20 +71,22 @@ const FeedbackForm = ({ initialValues }: FeedbackFormProps) => {
                   sx={{ m: '0 14px', mt: '3px' }}
                   error={touched?.rating}
                 >
-                  {touched?.rating ? errors?.rating : 'Must be between 1 to 5'}
+                  {touched?.rating
+                    ? errors?.rating
+                    : fields.rating.helperText.generic}
                 </FormHelperText>
               </RatingContainer>
             </Details>
             <Comments>
               <TextField
                 inputProps={{
-                  'data-testid': 'comment',
+                  'data-testid': fields.comment.name,
                 }}
-                name="comment"
-                label="Comment"
+                name={fields.comment.name}
+                label={fields.comment.label}
+                placeholder={fields.comment.placeholder}
+                helperText={fields.comment.helperText.generic}
                 variant="outlined"
-                placeholder="Enter Your Comment"
-                helperText="Minimum length is 20 characters upto 100"
                 multiline
                 rows={5}
                 required
@@ -101,6 +103,54 @@ const FeedbackForm = ({ initialValues }: FeedbackFormProps) => {
 }
 
 export default FeedbackForm
+
+export const fields = {
+  name: {
+    name: 'name',
+    label: 'Name',
+    placeholder: 'Enter Your Name',
+    helperText: {
+      generic: 'Minimum length is 4 upto 20 characters',
+      empty:
+        'Please enter a name that does not contain special characters (minimum 6 upto 20 characters)',
+      requiredLength: 'name should be minimum 6 upto 20 characters',
+      requiredPattern: `name can't use numbers or special characters`,
+    },
+  },
+  email: {
+    name: 'email',
+    label: 'Email',
+    placeholder: 'Enter Your Email',
+    helperText: {
+      generic: 'Enter a valid email',
+      empty: 'Please enter an email',
+      requiredLength: '',
+      requiredPattern: 'email is not valid',
+    },
+  },
+  rating: {
+    name: 'rating',
+    label: 'rating',
+    placeholder: '',
+    helperText: {
+      generic: 'Must be between 1 to 5',
+      empty: 'Please rate the item (minimum 1 upto 5)',
+      requiredLength: 'Rating should be minimum 1 upto 5',
+      requiredPattern: '',
+    },
+  },
+  comment: {
+    name: 'comment',
+    label: 'Comment',
+    placeholder: 'Enter Your Comment',
+    helperText: {
+      generic: 'Minimum length is 20 characters upto 100',
+      empty: 'Please enter a comment (minimum 20 upto 100 characters)',
+      requiredLength: 'comment should be minimum 20 upto 100 characters',
+      requiredPattern: `comment can't use numbers or special characters`,
+    },
+  },
+}
 
 type RatingComponentProps = {
   rating: null | number

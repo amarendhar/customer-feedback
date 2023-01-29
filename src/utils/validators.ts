@@ -1,14 +1,15 @@
+import { fields } from 'pages/Home/FeedbackForm'
 import { FormValues } from 'pages/Home/useFeedbackForm'
 
 export const validateName = (name: string) => {
   if (!name) {
-    return 'Please enter a name that does not contain special characters (minimum 6 upto 20 characters)'
+    return fields.name.helperText.empty
   }
   if (name.length < 6 || name.length > 20) {
-    return 'name should be minimum 6 upto 20 characters'
+    return fields.name.helperText.requiredLength
   }
   if (!/^[A-Za-z ]+$/.test(name)) {
-    return "name can't use numbers or special characters"
+    return fields.name.helperText.requiredPattern
   }
 
   return ''
@@ -16,14 +17,14 @@ export const validateName = (name: string) => {
 
 export const validateEmailID = (emailId: string) => {
   if (!emailId) {
-    return 'Please enter an email'
+    return fields.email.helperText.empty
   }
   if (
     !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
       emailId
     )
   ) {
-    return 'email is not valid'
+    return fields.email.helperText.requiredPattern
   }
 
   return ''
@@ -33,10 +34,10 @@ export const validateRating = (rating: string) => {
   const normalizeRating = Number(rating)
 
   if (!normalizeRating) {
-    return 'Please rate the item (minimum 1 upto 5)'
+    return fields.rating.helperText.empty
   }
   if (normalizeRating < 1 || normalizeRating > 5) {
-    return 'Rating should be minimum 1 upto 5'
+    return fields.rating.helperText.requiredLength
   }
 
   return ''
@@ -44,13 +45,13 @@ export const validateRating = (rating: string) => {
 
 export const validateComment = (comment: string) => {
   if (!comment) {
-    return 'Please enter a comment (minimum 20 upto 100 characters)'
+    return fields.comment.helperText.empty
   }
   if (comment.length < 20 || comment.length > 100) {
-    return 'comment should be minimum 20 upto 100 characters'
+    return fields.comment.helperText.requiredLength
   }
   if (!/^[A-Za-z ]+$/.test(comment)) {
-    return "comment can't use numbers or special characters"
+    return fields.comment.helperText.requiredPattern
   }
 
   return ''
