@@ -1,31 +1,40 @@
 import React, { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { v4 } from 'uuid'
 import moment from 'moment'
 import { useAppDispatch } from 'store/hooks'
-import { addReview } from 'store/slices/reviewSlice'
+import { addReview, Review } from 'store/slices/reviewSlice'
 
-export type FormValues = {
-  name: string
-  email: string
-  rating: null | number
-  comment: string
+export enum Recommend {
+  NONE = 'none',
+  YES = 'yes',
+  NO = 'no',
 }
 
 const useFeedbackForm = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [hover, setHover] = React.useState(0)
 
   const onSubmit = useCallback(
-    (values: FormValues) => {
-      dispatch(
-        addReview({
-          ...values,
-          id: v4(),
-          createdAt: moment().format('x'),
-        })
-      )
+    (values: Omit<Review, 'id' | 'createdAt'>) => {
+      const review = {
+        ...values,
+        id: v4(),
+        createdAt: moment().format('x'),
+      }
+      delete review.recommend
+
+      if (String(values.recommend) === 'true') {
+        review.recommend = true
+      } else if (String(values.recommend) === 'false') {
+        review.recommend = false
+      }
+
+      dispatch(addReview(review))
+      navigate('/reviews')
     },
-    [dispatch]
+    [dispatch, navigate]
   )
 
   const onRatingHover = useCallback(

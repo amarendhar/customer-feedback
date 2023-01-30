@@ -7,6 +7,7 @@ export type Review = {
   email: string
   rating: number
   comment: string
+  recommend?: boolean
   createdAt: string
 }
 

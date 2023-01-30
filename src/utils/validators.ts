@@ -1,5 +1,5 @@
 import { fields } from 'pages/Home/FeedbackForm'
-import { FormValues } from 'pages/Home/useFeedbackForm'
+import { Review } from 'store/slices/reviewSlice'
 
 export const validateName = (name: string) => {
   if (!name) {
@@ -69,9 +69,9 @@ export const validators: Validators = {
   comment: validateComment,
 }
 
-const validate = (values: FormValues) => {
+const validate = (values: Omit<Review, 'id' | 'createdAt'>) => {
   const errors = Object.entries(values).reduce((acc, [name, value]) => {
-    const error = validators[name as keyof Validators](String(value))
+    const error = validators[name as keyof Validators]?.(String(value))
 
     if (error) {
       acc[name] = error
