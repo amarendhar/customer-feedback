@@ -86,9 +86,9 @@ const FeedbackForm = ({ initialValues }: FeedbackFormProps) => {
                   />
                   <FormHelperText
                     sx={{ m: '0 14px', mt: '3px' }}
-                    error={touched?.rating}
+                    error={touched?.rating && !!errors?.rating}
                   >
-                    {touched?.rating
+                    {touched?.rating && errors?.rating
                       ? errors?.rating
                       : fields.rating.helperText.generic}
                   </FormHelperText>

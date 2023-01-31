@@ -37,6 +37,9 @@ const useFeedbackForm = () => {
         autoClose: 2000,
         closeOnClick: true,
         pauseOnHover: true,
+        style: {
+          top: '35px'
+        }
       })
       dispatch(addReview(review))
       navigate('/reviews')
