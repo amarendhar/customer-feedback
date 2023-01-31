@@ -32,11 +32,11 @@ const Reviews = () => {
       <Typography fontSize={23} fontWeight="bold" p="15px">
         Ratings & Reviews
       </Typography>
-      {paginatedReviews.length > 0 ? (
+      {statistics.review_count > 0 ? (
         <>
-          <Distributions>
+          <ReviewStatistics data-testid="reviews-statistics">
             <ReviewsDashboard>
-              <RatingSummary>
+              <RatingSummary  data-testid="rating-summary">
                 <Typography fontSize={40} fontWeight="bold">
                   {statistics.rating.average}
                 </Typography>
@@ -45,7 +45,7 @@ const Reviews = () => {
                   {statistics.rating.count} star ratings
                 </Typography>
               </RatingSummary>
-              <RecommendationSummary>
+              <RecommendationSummary data-testid="recommendation-summary">
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                   <CircularProgressGrey
                     variant="determinate"
@@ -62,7 +62,7 @@ const Reviews = () => {
                     // ToDo: change color to red for `< 50` etc..
                     color="success"
                   />
-                  <CircularText>
+                  <CircularText data-testid="recommend-circle">
                     <Typography fontSize={16}>
                       {statistics.recommended_percentage}
                     </Typography>
@@ -76,7 +76,7 @@ const Reviews = () => {
                 </Typography>
               </RecommendationSummary>
             </ReviewsDashboard>
-            <RatingHistogram>
+            <RatingHistogram data-testid="rating-histogram">
               {[...filterByOptions].reverse().map((val) => (
                 <Tooltip
                   key={val}
@@ -86,6 +86,7 @@ const Reviews = () => {
                   disableInteractive
                 >
                   <Link
+                    data-testid={`histogram-${val}-stars`}
                     component="button"
                     color="inherit"
                     onClick={() => {
@@ -95,7 +96,7 @@ const Reviews = () => {
                     }}
                   >
                     <Typography fontSize="12px" width="13%">
-                      {val}&nbsp;stars
+                      {val}&nbsp;{val === 1 ? 'star' : 'stars'}
                     </Typography>
                     <HistogramProgressBar
                       percentage={
@@ -118,7 +119,7 @@ const Reviews = () => {
                 </Tooltip>
               ))}
             </RatingHistogram>
-          </Distributions>
+          </ReviewStatistics>
           <NavLink to="/">
             <Button
               variant="outlined"
@@ -132,11 +133,11 @@ const Reviews = () => {
           <Filters filters={filters} onFiltersChange={onFiltersChange} />
           <ReviewsContainer>
             <Typography fontSize="16px" mt="20px">
-              Found {paginatedReviews.length} matching paginatedReviews
+              Found {paginatedReviews.length} matching reviews
             </Typography>
-            <ReviewsList>
+            <ReviewsList data-testid="reviews-list">
               {paginatedReviews.map((review) => (
-                <StyledCard key={review.id}>
+                <StyledCard key={review.id} data-testid="review-item">
                   <CardContent>
                     <Typography fontSize="18px" fontWeight="bold">
                       {review.name}
@@ -163,7 +164,7 @@ const Reviews = () => {
                         </CardRecommendation>
                       )}
                     </CardSummary>
-                    <Typography fontSize="12px" mt="4px">
+                    <Typography fontSize="12px" mt="4px" data-testid="date">
                       Reviewed on&nbsp;
                       {moment(Number(review.createdAt)).format('DD MMM YYYY')}
                     </Typography>
@@ -218,7 +219,7 @@ const Container = styled.div`
   text-align: center;
 `
 
-const Distributions = styled.div`
+const ReviewStatistics = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

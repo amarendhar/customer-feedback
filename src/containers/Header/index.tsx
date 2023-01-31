@@ -1,4 +1,5 @@
-import * as React from 'react'
+import React, { useCallback } from 'react'
+import { NavLink } from 'react-router-dom'
 import {
   AppBar,
   Box,
@@ -14,20 +15,19 @@ import {
   Button,
 } from '@mui/material'
 import { Menu } from '@mui/icons-material'
-import { NavLink } from 'react-router-dom'
 
 const drawerWidth = 240
 const navItems = [
-  { label: 'Home', to: '/' },
+  { label: 'Write Review', to: '/' },
   { label: 'All Reviews', to: '/reviews' },
 ]
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false)
 
-  const handleDrawerToggle = () => {
+  const handleDrawerToggle = useCallback(() => {
     setMobileOpen((prevState) => !prevState)
-  }
+  }, [])
 
   return (
     <Box sx={{ display: 'flex' }}>

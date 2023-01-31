@@ -11,9 +11,8 @@ import { rootReducer } from 'store'
 import ThemeProvider from 'themes/ThemeProvider'
 import App from 'App'
 
-const store = configureStore({ reducer: rootReducer, preloadedState: {} })
-
 const render = (ui, { route = '/' } = {}) => {
+  const store = configureStore({ reducer: rootReducer, preloadedState: {} })
   window.history.pushState({}, 'Test page', route)
 
   const Wrapper = ({ children }) => (
@@ -25,6 +24,7 @@ const render = (ui, { route = '/' } = {}) => {
   )
 
   return {
+    store,
     user: userEvent.setup(),
     ...rtlRender(ui, {
       wrapper: Wrapper,
@@ -33,11 +33,12 @@ const render = (ui, { route = '/' } = {}) => {
 }
 
 const renderHook = (hook) => {
+  const store = configureStore({ reducer: rootReducer, preloadedState: {} })
   const wrapper = ({ children }) => (
     <Provider store={store}>{children}</Provider>
   )
 
-  return rtlRenderHook(() => hook(), { wrapper })
+  return { store, ...rtlRenderHook(() => hook(), { wrapper }) }
 }
 
 export * from '@testing-library/react'

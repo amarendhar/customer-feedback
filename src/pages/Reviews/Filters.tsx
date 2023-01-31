@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback } from 'react'
+import React, { useState, useCallback, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import {
   Box,
@@ -10,6 +10,7 @@ import {
   Select,
   OutlinedInput,
   Checkbox,
+  ListItemIcon,
   ListItemText,
   SelectChangeEvent,
 } from '@mui/material'
@@ -55,6 +56,16 @@ const Filters = ({ filters, onFiltersChange }: FiltersProps) => {
   const onChangeFilterBy = useCallback(
     (e: SelectChangeEvent<number[]>) => {
       const value = e.target.value
+      if (value[value.length - 1] === 0) {
+        onFiltersChange({
+          filterBy:
+            filters.filterBy.length === filterByOptions.length
+              ? []
+              : [...filterByOptions],
+        })
+        return
+      }
+
       onFiltersChange({
         filterBy:
           // On autofill we get a stringified value.
@@ -63,11 +74,11 @@ const Filters = ({ filters, onFiltersChange }: FiltersProps) => {
             : value,
       })
     },
-    [onFiltersChange]
+    [onFiltersChange, filters.filterBy]
   )
 
   return (
-    <Container>
+    <Container data-testid="reviews-filters">
       <TextField
         name="sortBy"
         label="Sort by"
@@ -105,6 +116,18 @@ const Filters = ({ filters, onFiltersChange }: FiltersProps) => {
             },
           }}
         >
+          <MenuItem value={0}>
+            <ListItemIcon>
+              <Checkbox
+                checked={filters.filterBy.length === filterByOptions.length}
+                indeterminate={
+                  filters.filterBy.length > 0 &&
+                  filters.filterBy.length < filterByOptions.length
+                }
+              />
+            </ListItemIcon>
+            <ListItemText primary="Select All" />
+          </MenuItem>
           {filterByOptions.map((value) => (
             <MenuItem key={value} value={value}>
               <Checkbox checked={filters.filterBy.includes(value)} />
