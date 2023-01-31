@@ -15,7 +15,7 @@ describe('Reviews', () => {
 
     screen.getByText('Ratings & Reviews')
     screen.getByText('Write a review')
-    screen.getByText('No Ratings Found')
+    screen.getByText('No Reviews Found')
     expect(screen.queryByTestId('reviews-statistics')).not.toBeInTheDocument()
     expect(screen.queryByTestId('reviews-filters')).not.toBeInTheDocument()
     expect(screen.queryByTestId('reviews-list')).not.toBeInTheDocument()
@@ -38,7 +38,7 @@ describe('Reviews', () => {
       filterBy: [...filterByOptions],
     })
 
-    expect(screen.queryByText('No Ratings Found')).not.toBeInTheDocument()
+    expect(screen.queryByText('No Reviews Found')).not.toBeInTheDocument()
     screen.getByText('Ratings & Reviews')
     screen.getByText('Write a review')
     screen.getByTestId('reviews-statistics')

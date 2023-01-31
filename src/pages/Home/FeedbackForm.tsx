@@ -67,22 +67,22 @@ const FeedbackForm = ({ initialValues }: FeedbackFormProps) => {
                   variant="outlined"
                   required
                 />
+                <Field name={fields.rating.name} component={() => null} />
                 <RatingContainer data-testid={fields.rating.name}>
                   <Typography component="legend">
                     Rating (1-5 stars) *
                   </Typography>
-                  <Field
-                    name={fields.rating.name}
-                    component={() => (
-                      <RatingComponent
-                        rating={rating}
-                        hover={hover}
-                        onChange={(e, newValue) =>
-                          form.change('rating', Number(newValue))
-                        }
-                        onChangeActive={onRatingHover}
-                      />
-                    )}
+                  <RatingComponent
+                    rating={rating}
+                    hover={hover}
+                    onChange={(e, newValue) => {
+                      form.change('rating', Number(newValue))
+                      form.resetFieldState('rating')
+                      if (touched) {
+                        touched.rating = true
+                      }
+                    }}
+                    onChangeActive={onRatingHover}
                   />
                   <FormHelperText
                     sx={{ m: '0 14px', mt: '3px' }}

@@ -186,7 +186,7 @@ const Reviews = () => {
         </>
       ) : (
         <>
-          <Typography>No Ratings Found</Typography>
+          <Typography>No Reviews Found</Typography>
           <NavLink to="/">
             <Button
               variant="outlined"
