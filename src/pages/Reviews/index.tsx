@@ -14,9 +14,11 @@ import {
   CardContent,
 } from '@mui/material'
 import { TaskAltOutlined, CancelOutlined } from '@mui/icons-material'
-import useReviews from './useReviews'
+import useReviews, { Statistics } from './useReviews'
 import { Pagination } from 'components'
 import Filters, { filterByOptions } from './Filters'
+
+type Distribution = Statistics['rating']['distribution']
 
 const Reviews = () => {
   const {
@@ -36,7 +38,7 @@ const Reviews = () => {
         <>
           <ReviewStatistics data-testid="reviews-statistics">
             <ReviewsDashboard>
-              <RatingSummary  data-testid="rating-summary">
+              <RatingSummary data-testid="rating-summary">
                 <Typography fontSize={40} fontWeight="bold">
                   {statistics.rating.average}
                 </Typography>
@@ -101,7 +103,7 @@ const Reviews = () => {
                     <HistogramProgressBar
                       percentage={
                         statistics.rating.distribution[
-                          `rating${val}_percentage` as keyof typeof statistics.rating.distribution
+                          `rating${val}_percentage` as keyof Distribution
                         ]
                       }
                     >
@@ -110,7 +112,7 @@ const Reviews = () => {
                     <Typography fontSize="12px" width="11%">
                       {
                         statistics.rating.distribution[
-                          `rating${val}_percentage` as keyof typeof statistics.rating.distribution
+                          `rating${val}_percentage` as keyof Distribution
                         ]
                       }
                       %

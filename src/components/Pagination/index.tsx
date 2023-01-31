@@ -30,7 +30,7 @@ const Pagination = ({ count, filters, onFiltersChange }: PaginationProps) => {
 
   return (
     <TablePagination
-      labelRowsPerPage="Reviews/page"
+      labelRowsPerPage="Reviews/Page"
       labelDisplayedRows={({ from, to, count }) =>
         `Displaying ${from}–${to} Reviews of ${count}`
       }

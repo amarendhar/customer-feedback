@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { v4 } from 'uuid'
 import moment from 'moment'
 import { useAppDispatch } from 'store/hooks'
@@ -31,6 +32,12 @@ const useFeedbackForm = () => {
         review.recommend = false
       }
 
+      toast.success('Review added successfully', {
+        position: 'top-right',
+        autoClose: 2000,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
       dispatch(addReview(review))
       navigate('/reviews')
     },
