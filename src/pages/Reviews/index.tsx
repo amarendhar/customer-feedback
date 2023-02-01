@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import moment from 'moment'
 import { NavLink } from 'react-router-dom'
 import {
@@ -64,7 +64,7 @@ const Reviews = () => {
                     // ToDo: change color to red for `< 50` etc..
                     color="success"
                   />
-                  <CircularText data-testid="recommend-circle">
+                  <CircularText data-testid="recommend-circle-text">
                     <Typography fontSize={16}>
                       {statistics.recommended_percentage}
                     </Typography>
@@ -279,17 +279,24 @@ const CircularText = styled.div`
   ${AbsoluteCenter};
 `
 
+const widthAnim = (percentage: number) => keyframes`
+ 0% { width: 0; }
+ 100% { width: ${percentage}%; }
+`
+
 const HistogramProgressBar = styled.div<{ percentage: number }>`
   flex-grow: 1;
   border-radius: 4px;
   background-color: rgb(247, 247, 247);
   height: 8px;
+  overflow: hidden;
 
   > div {
     width: ${({ percentage }) => percentage}%;
     height: 100%;
-    background-color: rgb(0, 131, 0);
     border-radius: 4px;
+    background-color: rgb(0, 131, 0);
+    animation: ${({ percentage }) => widthAnim(percentage)} 1s 1;
   }
 `
 

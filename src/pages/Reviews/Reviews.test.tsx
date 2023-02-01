@@ -48,7 +48,7 @@ describe('Reviews', () => {
     within(ratingSummary).getByText(`${statistics.rating.count} star ratings`)
 
     const recommendationSummary = screen.getByTestId('recommendation-summary')
-    within(screen.getByTestId('recommend-circle')).getByText(
+    within(screen.getByTestId('recommend-circle-text')).getByText(
       statistics.recommended_percentage
     )
     within(recommendationSummary).getByText(
