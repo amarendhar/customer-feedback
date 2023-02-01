@@ -57,7 +57,7 @@ const getReviewStatistics = (reviews: Review[]): Statistics => {
       distribution: {
         ...stats.rating.distribution,
         ...filterByOptions.reduce((acc, val) => {
-          const percentage = Math.ceil(
+          const percentage = Math.floor(
             (stats.rating.distribution[`rating${val}` as keyof Distribution] /
               stats.review_count) *
               100
