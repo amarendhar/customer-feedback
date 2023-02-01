@@ -49,7 +49,7 @@ export const validateComment = (comment: string) => {
   if (comment.length < 20 || comment.length > 100) {
     return fields.comment.helperText.requiredLength
   }
-  if (!/^[A-Za-z0-9 ]+$/.test(comment)) {
+  if (!/^[A-Za-z0-9.,;\- ]+$/.test(comment)) {
     return fields.comment.helperText.requiredPattern
   }
 
